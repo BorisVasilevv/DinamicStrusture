@@ -73,7 +73,7 @@ namespace AlgorithmComplexityLab4
             }
             else
             {
-                start.Next = start;
+                start = start.Next;
                 start.Previous = null;
             }
         }
@@ -101,8 +101,9 @@ namespace AlgorithmComplexityLab4
 
         public void Print()
         {
+            if (count == 0) throw new IndexOutOfRangeException("Queye is empty");
             Node<T> node = start;
-            while (node != null)
+            while (node!=null)
             {
                 Console.WriteLine(node.Data);
                 node = node.Next;
@@ -111,6 +112,7 @@ namespace AlgorithmComplexityLab4
 
         public void WriteFirstElem()
         {
+            if (count == 0) throw new IndexOutOfRangeException("Queye is empty");
             Console.WriteLine(start.Data);
         }
 

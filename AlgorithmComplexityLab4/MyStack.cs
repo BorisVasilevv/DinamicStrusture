@@ -14,6 +14,11 @@ namespace AlgorithmComplexityLab4
         public void Push(T elem)
         {
             Node<T> node = new Node<T>(elem);
+            if(count ==0)
+            {
+                top = node;
+                return;
+            }
             top.Previous=node;
             node.Next = top;
             top=node;
