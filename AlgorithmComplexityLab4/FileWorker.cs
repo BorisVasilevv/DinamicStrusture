@@ -23,7 +23,9 @@ namespace AlgorithmComplexityLab4
             Random random = new Random();
             for(int i=0;i<amountOfCommands; i++)
             {
-                int a=random.Next()%5+1;
+                int a;
+                if (i < amountOfCommands / 10) a = 1;
+                else a= random.Next() % 5 + 1;
                 sb.Append(a.ToString());
                 if(a==1)
                 {

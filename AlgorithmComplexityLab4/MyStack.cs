@@ -17,6 +17,7 @@ namespace AlgorithmComplexityLab4
             if(count ==0)
             {
                 top = node;
+                count++;
                 return;
             }
             top.Previous=node;
