@@ -19,6 +19,10 @@ namespace AlgorithmComplexityLab4
             //    string content = File.ReadAllText("..//..//..//..//input22.txt");
             //    WorkWithPostfix(content);
             //}
+
+            //Task3Queue.queue(); //3 часть очередь
+
+            //BinaryTree.task3(); //3 часть дерево
             string infix = "A*(B*C+D*E)+F";
             string postfix = Postfix.infixToPostfix(infix);
             Console.WriteLine(postfix);
@@ -32,11 +36,8 @@ namespace AlgorithmComplexityLab4
             List<string> listQ = new List<string>();
             List<string> listS = new List<string>();
             Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
-
-
             double a;
-            stopWatch.Reset();
+            
             for (int i = 1; i <= 100; i++)
             {
 
@@ -58,6 +59,9 @@ namespace AlgorithmComplexityLab4
                 listQ.Add(a.ToString());
 
                 stopWatch.Reset();
+                File.WriteAllLines("..//..//..//..//Stack.txt", listS);
+                File.WriteAllLines("..//..//..//..//Queue.txt", listQ);
+
             }
             File.WriteAllLines("..//..//..//..//Stack.txt", listS);
             File.WriteAllLines("..//..//..//..//Queue.txt", listQ);

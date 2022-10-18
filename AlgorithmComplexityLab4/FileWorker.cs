@@ -49,8 +49,9 @@ namespace AlgorithmComplexityLab4
             for (int i = 0; i < amountOfCommands; i++)
             {
                 int a=0;
-                if (i % 10 == 0) a = random.Next() % 5 + 1;
-                else a = 2;
+                if (i < amountOfCommands / 10) a = 1;
+                else if (i % 10 == 0) a = random.Next() % 5 + 1;
+                else a = 5;
                 sb.Append(a.ToString());
                 if (a == 1)
                 {
