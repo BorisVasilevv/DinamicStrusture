@@ -6,11 +6,22 @@ namespace AlgorithmComplexityLab4
 {
     class Programm
     {
-        
+
         public static void Main()
         {
 
             TimeExperiment();
+
+
+            //TimeExperiment();
+            //if (File.Exists("..//..//..//..//input22.txt"))
+            //{
+            //    string content = File.ReadAllText("..//..//..//..//input22.txt");
+            //    WorkWithPostfix(content);
+            //}
+            string infix = "A*(B*C+D*E)+F";
+            string postfix = Postfix.infixToPostfix(infix);
+            Console.WriteLine(postfix);
 
         }
 
@@ -19,16 +30,16 @@ namespace AlgorithmComplexityLab4
             MyQueue<string> queue = new MyQueue<string>();
 
             List<string> listQ = new List<string>();
-            List<string> listS = new List<string>();            
+            List<string> listS = new List<string>();
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            
+
             double a;
             stopWatch.Reset();
-            for (int i = 10; i <= 1000; i+=10)
+            for (int i = 1; i <= 100; i++)
             {
-                FileWorker.GenerateFile(1000*i);
+                FileWorker.GenerateFile(100 * i);
                 string[] setOfCommands = FileWorker.ReadFile();
 
                 stopWatch.Start();
@@ -112,9 +123,9 @@ namespace AlgorithmComplexityLab4
                         case "5":
                             queue.Print();
                             break;
-                        default: 
+                        default:
                             throw new Exception("Not idintificated command");
-                            
+
 
                     }
                 }
@@ -125,5 +136,10 @@ namespace AlgorithmComplexityLab4
             }
         }
 
+
+
+        
+
     }
+
 }
