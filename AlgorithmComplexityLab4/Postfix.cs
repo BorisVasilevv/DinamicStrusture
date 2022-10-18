@@ -58,9 +58,9 @@ namespace AlgorithmComplexityLab4
 
                 else if (c == ')')
                 {
-                    while (s.Top() != '(')
+                    while (s.Top().Data != '(')
                     {
-                        postfix += s.Top();
+                        postfix += s.Top().Data;
                         s.Pop();
                     }
                     s.Pop();
@@ -75,9 +75,9 @@ namespace AlgorithmComplexityLab4
 
                 else
                 {
-                    while (!s.IsEmpty() && prec(c) >= prec(s.Top()))
+                    while (!s.IsEmpty() && prec(c) >= prec(s.Top().Data))
                     {
-                        postfix += s.Top();
+                        postfix += s.Top().Data;
                         s.Pop();
                     }
 
@@ -87,7 +87,7 @@ namespace AlgorithmComplexityLab4
 
             while (!s.IsEmpty())
             {
-                postfix += s.Top();
+                postfix += s.Top().Data;
                 s.Pop();
             }
 

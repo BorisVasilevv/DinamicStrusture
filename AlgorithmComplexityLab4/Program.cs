@@ -39,8 +39,8 @@ namespace AlgorithmComplexityLab4
             stopWatch.Reset();
             for (int i = 1; i <= 100; i++)
             {
-                FileWorker.GenerateFile(100 * i);
-                string[] setOfCommands = FileWorker.ReadFile();
+
+                string[] setOfCommands = FileWorker.GenerateCommands(100 * i);
 
                 stopWatch.Start();
                 WorkWithStack(setOfCommands);
@@ -115,7 +115,7 @@ namespace AlgorithmComplexityLab4
                             queue.Delete();
                             break;
                         case "3":
-                            queue.WriteFirstElem();
+                            queue.StartElem();
                             break;
                         case "4":
                             queue.IsEmpty();

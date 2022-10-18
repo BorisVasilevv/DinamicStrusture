@@ -110,10 +110,10 @@ namespace AlgorithmComplexityLab4
             }
         }
 
-        public void WriteFirstElem()
+        public Node<T> StartElem()
         {
             if (count == 0) throw new IndexOutOfRangeException("Queye is empty");
-            Console.WriteLine(start.Data);
+            return start;
         }
 
         public bool IsEmpty() => count== 0;

@@ -37,6 +37,7 @@ namespace AlgorithmComplexityLab4
 
         public int Count()
         {
+
             return count;
         }
 
@@ -45,10 +46,10 @@ namespace AlgorithmComplexityLab4
             return count == 0;
         }
 
-        public T Top()
+        public Node<T> Top()
         {
             if (count == 0) throw new IndexOutOfRangeException("Stack is empty");
-            return top.Data;
+            return top;
         }
 
         public void Print()
