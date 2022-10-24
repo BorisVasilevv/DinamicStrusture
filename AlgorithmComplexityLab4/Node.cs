@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,17 +11,21 @@ namespace AlgorithmComplexityLab4
     {
         public T Data;
 
-        public Node(T data, Node<T> next, Node<T> previous)
-        {
-            Data = data;
-            Next = next;
-            Previous = previous;
-        }
+
+
+        //public Node(T data, Node<T> next, Node<T> previous)
+        //{
+        //    Data = data;
+        //    Next = next;
+        //    Previous = previous;
+        //}
 
         public Node(T data)
         {
             Data = data;
         }
+        
+
 
         //public Node(){}
 

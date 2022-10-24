@@ -78,26 +78,7 @@ namespace AlgorithmComplexityLab4
             }
         }
 
-        public void Delete(int index)
-        {
-            if (index < 0 || index >count) throw new IndexOutOfRangeException();
-            count--;
-            Node<T> node = start;
-            if (index == 0)
-            {
-                Delete();
-                return;
-            }
-            for (int i = 1; i < index; i++)
-            {
-                node = node.Next;
-            }
-            node.Next.Previous = node.Previous;
-            node.Previous.Next = node.Next;
-            node.Next = null;
-            node.Previous = null;
-            node = null;
-        }
+        
 
         public void Print()
         {

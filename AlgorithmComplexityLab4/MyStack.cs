@@ -26,13 +26,13 @@ namespace AlgorithmComplexityLab4
             count++;
         }
 
-        public T Pop()
+        public Node<T> Pop()
         {
             if (count == 0) throw new IndexOutOfRangeException("Stack is empty");
             count--;
-            T data = top.Data;
+            T data = top.Data;  
             top = top.Next;
-            return data;
+            return top;
         }
 
         public int Count()

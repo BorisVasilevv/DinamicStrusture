@@ -132,20 +132,20 @@ namespace AlgorithmComplexityLab4
                     {
                         if (tokenList[i].Equals("ln") || tokenList[i].Equals("sin") || tokenList[i].Equals("sqrt") || tokenList[i].Equals("cos"))
                         {
-                            int operand2 = operandStack.Pop();
+                            int operand2 = operandStack.Pop().Data;
                             result = doMath(tokenList[i], 0, operand2);
                             operandStack.Push(result);
                         }
                         else
                         {
-                            int operand2 = operandStack.Pop();
-                            int operand1 = operandStack.Pop();
+                            int operand2 = operandStack.Pop().Data;
+                            int operand1 = operandStack.Pop().Data;
                             result = doMath(tokenList[i], operand1, operand2);
                             operandStack.Push(result);
                         }
                     }
                 }
-                result = operandStack.Pop();
+                result = operandStack.Pop().Data;
                 return result;
             }
             Console.WriteLine(postfixEval(postfixExpr));
