@@ -170,6 +170,91 @@ namespace AlgorithmComplexityLab4
 
         public bool IsEmpty() => Count == 0;
 
+
+        //1.Написать функцию, которая переворачивает список L,
+        //т.е. изменяет ссылки в этом списке так,
+        //чтобы его элементы оказались расположенными в обратном порядке. 
+        public void Reverse()
+        {
+            if (Count <= 1) return;
+            Node<T> node = start;
+            while (node != null)
+            {
+                Node<T> connection = node.Next;
+                node.Next = node.Previous;
+                node.Previous = connection;
+                node = node.Previous;
+            }
+
+            node = start;
+            start = end;
+            end = node;
+        }
+
+        //2.Написать функцию, которая переносит в начало (в конец) непустого списка L его последний (первый) элемент. 
+        public void LastOnFirstPosition()
+        {
+            if (Count <= 1) return;
+            Node<T> node = start;
+            node.Previous = end;
+            end.Next = node;
+            end = end.Previous;
+            end.Next.Previous = null;
+            end.Next = null;
+            start = start.Previous;
+        }
+
+        public void FirstOnLastPosition()
+        {
+            if (Count <= 1) return;
+            end.Next = start;
+            start.Previous = end;
+            start = start.Next;
+            start.Previous = null;
+            end = end.Next;
+            end.Next = null;
+        }
+
+        //3.Написать функцию, которая определяет количество различных элементов списка, содержащего целые числа.
+        public int AmountOfIntegerNumbers()
+        {
+            int total = 0;
+            Node<T> node = start;
+            while (node != null)
+            {
+                try
+                {
+                    double a = Double.Parse(node.Data.ToString());
+                    if (a == Math.Truncate(a)) total++;
+                }
+                catch (Exception ignoreException)
+                {
+
+                }
+                node = node.Next;
+            }
+            return total;
+        }
+
+        //4.Написать функцию, которая удаляет из списка L второй из двух одинаковых элементов.
+        public void DeleteTheDoubledElem()
+        {
+            List<int> a = new List<int>();
+            for (int i = 0; i < Count; i++)
+            {
+                for (int j = 0; j < Count; j++)
+                {
+                    if (i == j) continue;
+                    if (this[i].Data.Equals(this[j].Data))
+                    {
+                        Delete(j);
+                        return;
+                    }
+                }
+            }
+        }
+
+
         //5.Написать функцию вставки списка самого в себя вслед за первым вхождением числа х.
         public void MakeSelfDuplicateByIndex(int insertIndex)
         {
@@ -188,6 +273,31 @@ namespace AlgorithmComplexityLab4
             copyOfList.start.Previous = node;
             copyOfList.end.Next = copyOfConnect;
             copyOfConnect.Previous = copyOfList.end;
+        }
+
+        //7.Написать функцию, которая удаляет из списка L все элементы Е, если таковые имеются. 
+        public void DeleteElements(T elem)
+        {
+            MyList<int> indexsOfMatched = new MyList<int>();
+            for (int i = 0; i < Count; i++)
+                if (this[i].Data.Equals(elem))
+                    indexsOfMatched.Add(i);
+
+            for (int i = indexsOfMatched.Count - 1; i >= 0; i--)
+                Delete(indexsOfMatched[i].Data);
+        }
+
+        //8.Написать функцию, которая вставляет в список L новый элемент F перед первым вхождением элемента Е, если Е входит в L.
+        public void InsertElement( T insertedElem, T elemAfter)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i].Data.Equals(elemAfter))
+                {
+                    Add(insertedElem, i);
+                    return;
+                }
+            }
         }
 
 
@@ -235,97 +345,64 @@ namespace AlgorithmComplexityLab4
         public void TwiceMyList()
         {
             MyList<T> myList = new MyList<T>(this);
-            this.Append(myList);
+            Append(myList);
         }
 
+
+        //12.Функция меняет местами два элемента списка, заданные пользователем
+        public  void ChangePlacesTwoElems( int firstIndex, int secondIndex)
+        {
+            if (firstIndex >= Count || secondIndex >= Count) throw new IndexOutOfRangeException();
+            if (firstIndex == secondIndex) return;
+            if (firstIndex > secondIndex)
+            {
+                int a = firstIndex;
+                firstIndex = secondIndex;
+                secondIndex = a;
+            }
+            Node<T> first = this[firstIndex];
+            Node<T> second = this[secondIndex];
+
+            Node<T> copyOfConnectionNext = first.Next;
+            Node<T> copyOfConnectionPrevious = first.Previous;
+
+            if (firstIndex == 0)
+            {
+                first.Next.Previous = second;
+                first.Next = second.Next;
+                first.Previous = second.Previous;
+
+                start = second;
+            }
+            else
+            {
+                first.Next.Previous = second;
+                first.Previous.Next = second;
+                first.Next = second.Next;
+                first.Previous = second.Previous;
+            }
+
+            if (secondIndex == Count - 1)
+            {
+
+                second.Previous.Next = first;
+                second.Next = copyOfConnectionNext;
+                second.Previous = copyOfConnectionPrevious;
+                end = first;
+            }
+            else
+            {
+                second.Next.Previous = first;
+                second.Previous.Next = first;
+                second.Next = copyOfConnectionNext;
+                second.Previous = copyOfConnectionPrevious;
+            }
+        }
 
     }
 
     public static class MyListExtension
     {
-        //1.Написать функцию, которая переворачивает список L,
-        //т.е. изменяет ссылки в этом списке так,
-        //чтобы его элементы оказались расположенными в обратном порядке. 
-        public static void Reverse<T>(this MyList<T> list)
-        {
-            if (list.Count <= 1) return;
-            Node<T> node = list.StartElem();
-            while (node != null)
-            {
-                Node<T> connection = node.Next;
-                node.Next = node.Previous;
-                node.Previous = connection;
-                node = node.Previous;
-            }
-
-            node = list.StartElem();
-            list.start = list.end;
-            list.end = node;
-        }
-
-        //2.Написать функцию, которая переносит в начало (в конец) непустого списка L его последний (первый) элемент. 
-        public static void LastOnFirstPosition<T>(this MyList<T> list)
-        {
-            if (list.Count <= 1) return;
-            Node<T> node = list.start;
-            node.Previous = list.end;
-            list.end.Next = node;
-            list.end = list.end.Previous;
-            list.end.Next.Previous = null;
-            list.end.Next = null;
-            list.start = list.start.Previous;
-        }
-
-        public static void FirstOnLastPosition<T>(this MyList<T> list)
-        {
-            if (list.Count <= 1) return;
-            list.end.Next = list.start;
-            list.start.Previous = list.end;
-            list.start = list.start.Next;
-            list.start.Previous = null;
-            list.end = list.end.Next;
-            list.end.Next = null;
-        }
-
-        //3.Написать функцию, которая определяет количество различных элементов списка, содержащего целые числа.
-        public static int AmountOfIntegerNumbers<T>(this MyList<T> list)
-        {
-            int total = 0;
-            Node<T> node = list.start;
-            while (node != null)
-            {
-                try
-                {
-                    double a = Double.Parse(node.Data.ToString());
-                    if (a == Math.Truncate(a)) total++;
-                }
-                catch (Exception ignoreException)
-                {
-
-                }
-                node = node.Next;
-            }
-            return total;
-        }
-
-        //4.Написать функцию, которая удаляет из списка L второй из двух одинаковых элементов.
-        public static void DeleteTheDoubledElem<T>(this MyList<T> list)
-        {
-            List<int> a = new List<int>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                for (int j = 0; j < list.Count; j++)
-                {
-                    if (i == j) continue;
-                    if (list[i].Data.Equals(list[j].Data))
-                    {
-                        list.Delete(j);
-                        return;
-                    }
-                }
-            }
-        }
-
         //6.Написать функцию, которая вставляет в непустой список L,
         //элементы которого упорядочены по не убыванию,
         //новый элемент Е так, чтобы сохранилась упорядоченность.
@@ -344,94 +421,6 @@ namespace AlgorithmComplexityLab4
             }
             list.Add(elem, list.Count - 1);
         }
-
-
-        //7.Написать функцию, которая удаляет из списка L все элементы Е, если таковые имеются. 
-        public static void DeleteElements<T>(this MyList<T> list, int elem)
-        {
-            MyList<int> indexsOfMatched = new MyList<int>();
-            for (int i = 0; i < list.Count; i++)
-                if (list[i].Data.Equals(elem))
-                    indexsOfMatched.Add(i);
-
-            for (int i = indexsOfMatched.Count - 1; i >= 0; i--)
-                list.Delete(indexsOfMatched[i].Data);
-        }
-
-        //8.Написать функцию, которая вставляет в список L новый элемент F перед первым вхождением элемента Е, если Е входит в L.
-        public static void InsertElement<T>(this MyList<T> list, T insertedElem, T elemAfter)
-        {
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i].Data.Equals(elemAfter))
-                {
-                    list.Add(insertedElem, i);
-                    return;
-                }
-            }
-        }
-
-
-        //12.Функция меняет местами два элемента списка, заданные пользователем
-        public static void ChangePlacesTwoElems<T>(this MyList<T> list, int firstIndex, int secondIndex)
-        {
-            if (firstIndex >= list.Count || secondIndex >= list.Count) throw new IndexOutOfRangeException();
-            if (firstIndex == secondIndex) return;
-            if (firstIndex > secondIndex)
-            {
-                int a = firstIndex;
-                firstIndex = secondIndex;
-                secondIndex = a;
-            }
-            Node<T> first = list[firstIndex];
-            Node<T> second = list[secondIndex];
-
-            Node<T> copyOfConnectionNext=first.Next;
-            Node<T> copyOfConnectionPrevious=first.Previous;
-
-            if(firstIndex==0)
-            {
-                first.Next.Previous = second;
-                first.Next = second.Next;
-                first.Previous = second.Previous;
-
-                list.start = second;
-            }
-            else
-            {
-                first.Next.Previous = second;
-                first.Previous.Next = second;
-                first.Next = second.Next;
-                first.Previous = second.Previous;
-            }
-
-            if(secondIndex==list.Count-1)
-            {
-
-                second.Previous.Next = first;
-                second.Next = copyOfConnectionNext;
-                second.Previous = copyOfConnectionPrevious;
-                list.end = first;
-            }
-            else
-            {
-                second.Next.Previous = first;
-                second.Previous.Next = first;
-                second.Next = copyOfConnectionNext;
-                second.Previous = copyOfConnectionPrevious;
-            }
-
-            
-
-            
-
-
-        }
-
-
-
     }
-
-
 }
 
