@@ -37,7 +37,6 @@ namespace AlgorithmComplexityLab4
 
         public int Count()
         {
-
             return count;
         }
 

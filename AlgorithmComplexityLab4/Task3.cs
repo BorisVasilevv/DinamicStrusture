@@ -25,34 +25,36 @@ namespace AlgorithmComplexityLab4
             Console.WriteLine(String.Join(", ", q2));
         }
 
-        
-        
-            //Формулировка задачи:
-            //9.«Считалка». N ребят стоят по кругу.Начав отсчет от первого, удаляют каждого К-го, смыкая круг после каждого удаления.Определить, кто остался последним.
-            public static void CountingRhyme()
+
+
+        //Формулировка задачи:
+        //9.«Считалка». N ребят стоят по кругу.Начав отсчет от первого, удаляют каждого К-го, смыкая круг после каждого удаления.Определить, кто остался последним.
+        public static void CountingRhyme()
+        {
+            MyList<int> list = new MyList<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+
+            Console.WriteLine("Введите шаг считалочки");
+            int k = int.Parse(Console.ReadLine());
+            int count = list.Count;
+            int removeAt = 0;
+
+            while ( count > 1)
             {
-                List<int> list = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+             
+                removeAt = (removeAt + k - 1) % count;
 
-                int count = list.Count;
-                int removeAt = 0;
+                Console.WriteLine("Выбыл с позиции: {0}, под номером {1}", removeAt+1, list[removeAt].Data);
 
-                for (; count > 0;)
-                {
+                list.Delete(removeAt);
 
-                    int k = int.Parse(Console.ReadLine());
-                    removeAt = (removeAt + k - 1) % count;
+                Console.WriteLine("Текущее состоянее: {0}", list.ToString());
 
-                    Console.WriteLine("Выбыл с позиции: {0}, под номером {1}", removeAt, list[removeAt]);
+                count--;
+            }
+            Console.WriteLine($"Победитель : {list.ToString()}");
 
-                    list.RemoveAt(removeAt);
-
-                    Console.WriteLine("Текущее состоянее: {0}", string.Join(" ", list));
-
-                    count--;
-                }
-
-                Console.WriteLine("End.");
-                Console.ReadKey();
+            Console.WriteLine("End.");
+            Console.ReadKey();
         }
 
         //В первой строке ввода дан размер массива n.Далее идут n чисел – элементы массива.
@@ -83,10 +85,12 @@ namespace AlgorithmComplexityLab4
             Console.WriteLine("Введите количество домов");
             int houseCount = int.Parse(
                 Console.ReadLine());
-            Stack<int> stack = new Stack<int>();
+
+            MyStack<int> stack = new MyStack<int>();
 
             for (int i = 0; i < houseCount; i++)
             {
+                Console.WriteLine($"Введите высоту {i}-го дома");
                 x = int.Parse(
                     Console.ReadLine());
                 if (i == 0)
@@ -95,14 +99,14 @@ namespace AlgorithmComplexityLab4
                 }
                 if (i > 0)
                 {
-                    if (x > stack.Peek())
+                    if (x > stack.Top().Data)
                     {
                         stack.Push(x);
                     }
                 }
             }
 
-            Console.WriteLine($"С высоты первого здания будет видно {stack.Count - 1} дома(ов)");
+            Console.WriteLine($"С высоты первого здания будет видно {stack.Count()} дома(ов)");
         }
 
 

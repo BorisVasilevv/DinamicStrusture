@@ -10,7 +10,7 @@ namespace AlgorithmComplexityLab4
         public static void Main()
         {
 
-            TestMyListFunctionality();
+            //TestMyListFunctionality();
 
             //TimeExperiment();
 
@@ -22,9 +22,10 @@ namespace AlgorithmComplexityLab4
             //    WorkWithPostfix(content);
             //}
 
-            //Task3Queue.queue(); //3 часть очередь
-
-            //BinaryTree.task3(); //3 часть дерево
+            //Task3.CountingRhyme(); //3 часть список
+            //Task3.queue(); //3 часть очередь
+            //Task3.CountBuilding(); //3 часть стек
+            BinaryTree.task3(); //3 часть дерево
             string infix = "A*(B*C+D*E)+F";
             string postfix = Postfix.infixToPostfix(infix);
             Console.WriteLine(postfix);

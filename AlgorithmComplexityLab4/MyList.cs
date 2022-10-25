@@ -11,8 +11,8 @@ namespace AlgorithmComplexityLab4
 {
     public class MyList<T>
     {
-        internal Node<T> start = null;
-        internal Node<T> end = null;
+        private Node<T> start = null;
+        private Node<T> end = null;
 
         public int Count { get; private set; }
 
@@ -48,10 +48,18 @@ namespace AlgorithmComplexityLab4
         }
         public MyList() { }
 
+        public MyList(params T[] array)
+        {
+            foreach (T item in array)
+            {
+                this.Add(item);
+            }
+        }
+
         public MyList(MyList<T> list)
         {
 
-            for (int i=0;i<list.Count;i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 this.Add(list[i].Data);
             }
@@ -288,7 +296,7 @@ namespace AlgorithmComplexityLab4
         }
 
         //8.Написать функцию, которая вставляет в список L новый элемент F перед первым вхождением элемента Е, если Е входит в L.
-        public void InsertElement( T insertedElem, T elemAfter)
+        public void InsertElement(T insertedElem, T elemAfter)
         {
             for (int i = 0; i < Count; i++)
             {
@@ -350,7 +358,7 @@ namespace AlgorithmComplexityLab4
 
 
         //12.Функция меняет местами два элемента списка, заданные пользователем
-        public  void ChangePlacesTwoElems( int firstIndex, int secondIndex)
+        public void ChangePlacesTwoElems(int firstIndex, int secondIndex)
         {
             if (firstIndex >= Count || secondIndex >= Count) throw new IndexOutOfRangeException();
             if (firstIndex == secondIndex) return;
@@ -399,6 +407,20 @@ namespace AlgorithmComplexityLab4
             }
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < Count; i++)
+            {
+                sb.Append(this[i].Data);
+                sb.Append(',');
+            }
+            if(sb.Length>0) sb.Remove(sb.Length - 1, 1);
+
+
+            return sb.ToString();
+        }
     }
 
     public static class MyListExtension

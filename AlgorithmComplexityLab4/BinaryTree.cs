@@ -10,7 +10,7 @@ namespace AlgorithmComplexityLab4
     public class BinaryTree
     {
         public readonly int value;
-        public readonly List<BinaryTree> leaves = new List<BinaryTree>();
+        public readonly MyList<BinaryTree> leaves = new MyList<BinaryTree>();
 
         public BinaryTree(int value)
         {
@@ -21,9 +21,9 @@ namespace AlgorithmComplexityLab4
         public int GetHigh()
         {
             int max = 0;
-            foreach (BinaryTree leaf in leaves)
+            for (int i=0;i<leaves.Count;i++) 
             {
-                int current = leaf.GetHigh();
+                int current = leaves[i].Data.GetHigh();
                 if (current > max)
                     max = current;
             }
